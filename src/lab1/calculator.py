@@ -119,4 +119,9 @@ def change_format(st):
     return ''.join(tmp3)
 
 
-
+if __name__ == "__main__":
+	#for _ in range(1):
+    while True:
+        print("\nВведите алгебраическое выражение:")
+        inp = input()
+        print(calculator(inp))
