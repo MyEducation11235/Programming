@@ -10,7 +10,7 @@ class CalculatorTestCase(unittest.TestCase):
     def test_encrypt_vigenere_3(self):
         self.assertEqual(encrypt_vigenere("Python3.6", 'd'), 'Sbwkrq3.6')
     def test_encrypt_vigenere_4(self):
-        self.assertEqual(encrypt_vigenere(""), "")
+        self.assertEqual(encrypt_vigenere("", 'b'), "")
     def test_encrypt_vigenere_5(self):
         self.assertEqual(encrypt_vigenere("ATTACKATDAWN", 'LEMON'), "LXFOPVEFRNHR")     
 
@@ -21,7 +21,7 @@ class CalculatorTestCase(unittest.TestCase):
     def test_decrypt_vigenere_3(self):
         self.assertEqual(decrypt_vigenere('Sbwkrq3.6', 'D'), "Python3.6")
     def test_decrypt_vigenere_4(self):
-        self.assertEqual(decrypt_vigenere(""), "")
+        self.assertEqual(decrypt_vigenere("", 'b'), "")
     def test_decrypt_vigenere_5(self):
         self.assertEqual(decrypt_vigenere("LXFOPVEFRNHR", "LEMON"), "ATTACKATDAWN")    
 
