@@ -15,7 +15,7 @@ class TestCalculator(unittest.TestCase):
 	def test_divide_by_zero(self):
 		self.assertEqual(calculator("10/0"), "10/0 Произошла ошибка во время рассчёта: Деление на ноль!")
 	def test_abc(self):
-		self.assertEqual(calculator("40abc"), "40hjo Произошла ошибка во время рассчёта: Посторонний символ 'a'!")
+		self.assertEqual(calculator("40abc"), "40abc Произошла ошибка во время рассчёта: Посторонний символ 'a'!")
 
 
 if __name__ == "__main__":
