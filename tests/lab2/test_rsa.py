@@ -8,7 +8,7 @@ class CalculatorTestCase(unittest.TestCase):
          self.assertEqual(is_prime(11), True)
          self.assertEqual(is_prime(8), False)   
     def test_gcd(self):
-         self.assertEqual(gcd(13, 15), 3)
+         self.assertEqual(gcd(12, 15), 3)
          self.assertEqual(gcd(3, 7), 1)
     def test_multiplicative_inverse(self):
         self.assertEqual(multiplicative_inverse(7, 40), 23)
