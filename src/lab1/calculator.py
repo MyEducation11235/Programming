@@ -1,9 +1,16 @@
 from collections import deque  
 
-def is_num(ch):
-    return ord('0') <= ord(ch) <= ord('9') or ch == '.' or ch == ',' or ch == '-'
-def if_normal(ch):
-    return is_num(ch) or ch in "+/*()"
+def calculator(inp):
+    fin = change_format(inp)
+    res = ''
+    try:
+        for el in fin:
+            if(not if_normal(el)):
+                raise ArithmeticError('Посторонний символ \'' + el + '\'!')
+        res = fin + ' = ' + str(calculate(fin))
+    except Exception as error:
+        res = fin + " Произошла ошибка во время рассчёта: " + str(error)
+    return res
 
 def calculate(st):
     q = deque()
@@ -28,6 +35,10 @@ def calculate(st):
         raise ArithmeticError('Неверная скобочная последовательность!')
     return plus_minus(st)
 
+def is_num(ch):
+    return ord('0') <= ord(ch) <= ord('9') or ch == '.' or ch == '-'
+def if_normal(ch):
+    return is_num(ch) or ch in "+/*()"
 
 def plus_minus(st):
     li = 0
@@ -42,21 +53,21 @@ def plus_minus(st):
         a += b
         li = i
         i += 1
-    return int(a) if int(a) == a else a
+    return int(a) if int(a) == a else round(a, 10)
 
 def mult_div(st):
     li = 0
     while(li < len(st) and is_num(st[li])):
         li += 1
     if(li == 0):
-        raise ArithmeticError('\'+\' должен стоять между оперантами!')
+        raise ArithmeticError('Операции должны быть записаны между оперантами!')
     a = float(st[:li])
     i = li + 1
     while(li < len(st)):
         while(i < len(st) and is_num(st[i])):
             i += 1
-        if(i - li + 1 == 0):
-            raise ArithmeticError('\'+\' должен стоять между оперантами!')
+        if(i - li - 1 == 0):
+            raise ArithmeticError('Операции должны быть записаны между оперантами!')
         b = float(st[li + 1:i])
         if(st[li] == '*'):
             a *= b
@@ -73,6 +84,7 @@ def mult_div(st):
 def change_format(st):
     s = ''.join(filter(lambda ch: ch not in ' \t', st))
     s = s.replace("--", '+')
+    s = s.replace(",", '.')
     
     tmp0 = [s[0]]
     i = 1
@@ -106,15 +118,5 @@ def change_format(st):
 
     return ''.join(tmp3)
 
-#or _ in range(1):
-while True:
-    print("\nВведите алгебраическое выражение:")
-    inp = input()
-    fin = change_format(inp)
-    try:
-        for el in fin:
-            if(not if_normal(el)):
-                raise ArithmeticError('Посторонний символ \'' + el + '\'!')
-        print(fin, '=', calculate(fin))
-    except Exception as error:
-        print(fin, "Произошла ошибка во время рассчёта:", error)
+
+
