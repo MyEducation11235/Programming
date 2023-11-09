@@ -17,7 +17,6 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
     grid = group(digits, 9)
     return grid
 
-#read_sudoku("puzzle1.txt")
 
 def display(grid: tp.List[tp.List[str]]) -> None:
     """Вывод Судоку """
@@ -44,7 +43,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     """
     if n**2 > len(values):
         raise "group: мало значений для составления таблицы"
-    res = [['.' for i in range(n)] for i in range(n)]
+    res = [[' ' for i in range(n)] for i in range(n)]
     for i in range(n):
         for j in range(n):
             res[i][j] = values[i*n + j]
@@ -60,7 +59,7 @@ def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    pass
+    return grid[pos[0]].copy()
 
 
 def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -72,12 +71,11 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    pass
-
+    return [grid[i][pos[1]] for i in range(len(grid))]
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения из квадрата, в который попадает позиция pos
-    >>> grid = read_sudoku('puzzle1.txt')
+    >>> grid = read_sudoku('src/lab3/puzzle1.txt')
     >>> get_block(grid, (0, 1))
     ['5', '3', '.', '6', '.', '.', '.', '9', '8']
     >>> get_block(grid, (4, 7))
@@ -85,8 +83,14 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
-
+    row, col = pos
+    row = row - row % 3
+    col = col - col % 3
+    res = []
+    for i in range(3):
+        res += grid[row + i][col:col+3]
+    return res
+#get_block(read_sudoku('puzzle1.txt'), (8, 8))
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
