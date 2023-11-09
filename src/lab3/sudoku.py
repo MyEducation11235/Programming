@@ -17,6 +17,7 @@ def create_grid(puzzle: str) -> tp.List[tp.List[str]]:
     grid = group(digits, 9)
     return grid
 
+#read_sudoku("puzzle1.txt")
 
 def display(grid: tp.List[tp.List[str]]) -> None:
     """Вывод Судоку """
@@ -41,7 +42,13 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    pass
+    if n**2 > len(values):
+        raise "group: мало значений для составления таблицы"
+    res = [['.' for i in range(n)] for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            res[i][j] = values[i*n + j]
+    return res
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
