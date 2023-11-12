@@ -4,8 +4,8 @@ class HistoryDatabase:
     films_persons_assoc = dict()    # ключ-фильм;       значение-все person, которые его посмотрели
 
     def __init__(self):
-        self.read_films("/mnt/F/path_without_Russian/Programming/src/lab4/task_1/films.txt")
-        self.read_history("/mnt/F/path_without_Russian/Programming/src/lab4/task_1/history.txt")
+        self.read_films("films.txt")
+        self.read_history("history.txt")
 
     def read_films(self, path: str) -> None:
         self.films.clear()
@@ -23,7 +23,7 @@ class HistoryDatabase:
                 for id_film in self.history[-1]:
                     self.films_persons_assoc[id_film] = self.films_persons_assoc.setdefault(id_film, []) + [len(self.history) - 1]
 
-    def get_advice(self, views: frozenset) -> int:
+    def get_advice(self, views: frozenset) -> str:
         matches = dict()         # ключ-persona; значение-число совпадений
         for views_film in views:
             for id_person in self.films_persons_assoc[views_film]:
